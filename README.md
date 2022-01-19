@@ -8,7 +8,7 @@
 ### Rodando
 
 1. Clone o projeto: `https://github.com/allanalves92/practical-test.git`
-1. Entre na pasta `tokio-test` e execute: `mvn spring-boot:run`
+1. Entre na pasta `practical-test` e execute: `mvn spring-boot:run`
 1. Acesse: `http://localhost:8080/customers`
 
 
