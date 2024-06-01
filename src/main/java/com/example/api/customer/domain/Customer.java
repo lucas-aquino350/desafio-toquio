@@ -1,6 +1,8 @@
 package com.example.api.customer.domain;
 
 import com.example.api.customer.application.api.CustomerRequest;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +13,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Customer {
 
 	@Id

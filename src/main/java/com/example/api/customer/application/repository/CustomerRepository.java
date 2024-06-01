@@ -5,9 +5,9 @@ import com.example.api.customer.domain.Customer;
 import java.util.List;
 
 public interface CustomerRepository {
-    List<Customer> findAllByOrderByNameAsc();
-
-    Object findById(Long id);
-
     Customer salva(Customer customer);
+
+    Customer findById(Long id);
+
+    List<Customer> findAllByOrderByNameAsc();
 }

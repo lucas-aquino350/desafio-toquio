@@ -1,8 +1,6 @@
 package com.example.api.customer.application.service;
 
 import java.util.List;
-import java.util.Optional;
-
 import com.example.api.customer.application.api.CustomerRequest;
 import com.example.api.customer.application.api.CustomerResponse;
 import com.example.api.customer.application.repository.CustomerRepository;
@@ -19,14 +17,6 @@ public class CustomerApplicationService implements CustomerService {
 
 	private final CustomerRepository customerRepository;
 
-	public List<Customer> findAll() {
-		return customerRepository.findAllByOrderByNameAsc();
-	}
-
-	public Optional<Object> findById(Long id) {
-		return Optional.of(customerRepository.findById(id));
-	}
-
 	@Override
 	public CustomerResponse registerCustomer(CustomerRequest customerRequest) {
 		log.info("[start] CustomerApplicationService - registerCustomer");
@@ -34,6 +24,18 @@ public class CustomerApplicationService implements CustomerService {
 		Customer customer = customerRepository.salva(new Customer(customerRequest));
 		log.info("[finish] CustomerApplicationService - registerCustomer");
 		return new CustomerResponse(customer);
+	}
+
+	@Override
+	public Customer findById(Long id) {
+		log.info("[start] CustomerApplicationService - findById");
+		Customer customer = customerRepository.findById(id);
+		log.info("[finish] CustomerApplicationService - findById");
+		return customer;
+	}
+
+	public List<Customer> findAll() {
+		return customerRepository.findAllByOrderByNameAsc();
 	}
 
 }
