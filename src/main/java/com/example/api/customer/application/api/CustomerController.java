@@ -11,30 +11,30 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.example.api.customer.domain.Customer;
-import com.example.api.customer.application.service.CustomerApplicationService;
 
 @RestController
 @RequiredArgsConstructor
 @Log4j2
 public class CustomerController implements CustomerApi {
 
-	private final CustomerService service;
+	private final CustomerService customerService;
 
 	@GetMapping
 	public List<Customer> findAll() {
-		return service.findAll();
+		return customerService.findAll();
 	}
 
 	@GetMapping("/{id}")
 	public Customer findById(@PathVariable Long id) {
-		return service.findById(id)
+		return (Customer) customerService.findById(id)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer not found"));
 	}
 
 	@Override
 	public CustomerResponse registerCustomer(CustomerRequest customerRequest) {
 		log.info("[start] CustomerController - registerCustomer");
+		CustomerResponse customerCreated = customerService.registerCustomer(customerRequest);
 		log.info("[finish] CustomerController - registerCustomer");
-		return null;
+		return customerCreated;
 	}
 }
