@@ -10,12 +10,12 @@ import com.example.api.customer.domain.Customer;
 import com.example.api.customer.application.repository.CustomerRepository;
 
 @Service
-public class CustomerService {
+public class CustomerApplicationService {
 
 	private CustomerRepository repository;
 
 	@Autowired
-	public CustomerService(CustomerRepository repository) {
+	public CustomerApplicationService(CustomerRepository repository) {
 		this.repository = repository;
 	}
 
