@@ -1,4 +1,4 @@
-package com.example.api.domain;
+package com.example.api.customer.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

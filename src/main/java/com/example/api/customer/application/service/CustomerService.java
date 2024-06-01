@@ -1,4 +1,4 @@
-package com.example.api.service;
+package com.example.api.customer.application.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.api.domain.Customer;
-import com.example.api.repository.CustomerRepository;
+import com.example.api.customer.domain.Customer;
+import com.example.api.customer.application.repository.CustomerRepository;
 
 @Service
 public class CustomerService {

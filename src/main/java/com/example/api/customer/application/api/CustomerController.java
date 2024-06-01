@@ -1,4 +1,4 @@
-package com.example.api.web.rest;
+package com.example.api.customer.application.api;
 
 import java.util.List;
 
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.example.api.domain.Customer;
-import com.example.api.service.CustomerService;
+import com.example.api.customer.domain.Customer;
+import com.example.api.customer.application.service.CustomerService;
 
 @RestController
 @RequestMapping("/customers")
