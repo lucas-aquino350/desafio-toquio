@@ -30,8 +30,10 @@ public class CustomerApplicationService implements CustomerService {
 	@Override
 	public CustomerResponse registerCustomer(CustomerRequest customerRequest) {
 		log.info("[start] CustomerApplicationService - registerCustomer");
+		log.info("[customerRequest] {}", customerRequest);
+		Customer customer = customerRepository.salva(new Customer(customerRequest));
 		log.info("[finish] CustomerApplicationService - registerCustomer");
-		return null;
+		return new CustomerResponse(customer);
 	}
 
 }

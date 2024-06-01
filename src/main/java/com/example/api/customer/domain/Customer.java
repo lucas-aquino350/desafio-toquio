@@ -1,5 +1,7 @@
 package com.example.api.customer.domain;
 
+import com.example.api.customer.application.api.CustomerRequest;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +14,8 @@ import javax.validation.constraints.NotEmpty;
 public class Customer {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(updatable = false, unique = true, nullable = false)
 	private Long id;
 
 	@Column(nullable = false)
@@ -23,6 +26,11 @@ public class Customer {
 	@NotEmpty
 	@Email
 	private String email;
+
+	public Customer(CustomerRequest customerRequest) {
+		this.name = customerRequest.getName();
+		this.email = customerRequest.getEmail();
+	}
 
 	public Long getId() {
 		return id;

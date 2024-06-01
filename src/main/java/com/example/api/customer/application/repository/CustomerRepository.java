@@ -8,4 +8,6 @@ public interface CustomerRepository {
     List<Customer> findAllByOrderByNameAsc();
 
     Object findById(Long id);
+
+    Customer salva(Customer customer);
 }

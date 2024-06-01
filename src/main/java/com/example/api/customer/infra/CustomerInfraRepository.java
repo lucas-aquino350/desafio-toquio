@@ -24,4 +24,12 @@ public class CustomerInfraRepository implements CustomerRepository {
     public Object findById(Long id) {
         return customerSpringDataJPARepository.findById(id);
     }
+
+    @Override
+    public Customer salva(Customer customer) {
+        log.info("[start] CustomerInfraRepository - salva");
+        customerSpringDataJPARepository.save(customer);
+        log.info("[finish] CustomerInfraRepository - salva");
+        return customer;
+    }
 }
