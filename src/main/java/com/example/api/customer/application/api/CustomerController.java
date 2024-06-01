@@ -2,6 +2,9 @@ package com.example.api.customer.application.api;
 
 import java.util.List;
 
+import com.example.api.customer.application.repository.CustomerRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,8 +17,9 @@ import com.example.api.customer.domain.Customer;
 import com.example.api.customer.application.service.CustomerService;
 
 @RestController
-@RequestMapping("/customers")
-public class CustomerController {
+@RequiredArgsConstructor
+@Log4j2
+public class CustomerController implements CustomerApi {
 
 	private CustomerService service;
 
@@ -35,4 +39,10 @@ public class CustomerController {
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer not found"));
 	}
 
+	@Override
+	public CustomerResponse registerCustomer(CustomerRequest customerRequest) {
+		log.info("[start] CustomerController - registerCustomer");
+		log.info("[finish] CustomerController - registerCustomer");
+		return null;
+	}
 }
