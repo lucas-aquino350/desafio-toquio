@@ -5,33 +5,26 @@ import java.util.Optional;
 
 import com.example.api.customer.application.api.CustomerRequest;
 import com.example.api.customer.application.api.CustomerResponse;
-import com.example.api.customer.application.api.CustomerService;
+import com.example.api.customer.application.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.api.customer.domain.Customer;
-import com.example.api.customer.application.repository.CustomerRepository;
 
 @Service
 @RequiredArgsConstructor
 @Log4j2
 public class CustomerApplicationService implements CustomerService {
 
-	private CustomerRepository repository;
-
-	@Autowired
-	public CustomerApplicationService(CustomerRepository repository) {
-		this.repository = repository;
-	}
+	private final CustomerRepository customerRepository;
 
 	public List<Customer> findAll() {
-		return repository.findAllByOrderByNameAsc();
+		return customerRepository.findAllByOrderByNameAsc();
 	}
 
 	public Optional<Object> findById(Long id) {
-		return Optional.of(repository.findById(id));
+		return Optional.of(customerRepository.findById(id));
 	}
 
 	@Override

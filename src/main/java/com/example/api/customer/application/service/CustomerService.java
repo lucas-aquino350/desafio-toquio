@@ -1,5 +1,7 @@
-package com.example.api.customer.application.api;
+package com.example.api.customer.application.service;
 
+import com.example.api.customer.application.api.CustomerRequest;
+import com.example.api.customer.application.api.CustomerResponse;
 import com.example.api.customer.domain.Customer;
 
 import java.util.List;

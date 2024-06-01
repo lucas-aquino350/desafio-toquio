@@ -2,6 +2,7 @@ package com.example.api.customer.application.api;
 
 import java.util.List;
 
+import com.example.api.customer.application.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
