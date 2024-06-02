@@ -21,4 +21,8 @@ public interface CustomerApi {
     @ResponseStatus(HttpStatus.OK)
     List<CustomerDetailedResponse> findAll();
 
+    @PatchMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    void updateCustomer(@PathVariable Long id, @RequestBody CustomerUpdateRequest customerUpdateRequest);
+
 }

@@ -3,6 +3,7 @@ package com.example.api.customer.application.service;
 import java.util.List;
 import com.example.api.customer.application.api.CustomerRequest;
 import com.example.api.customer.application.api.CustomerResponse;
+import com.example.api.customer.application.api.CustomerUpdateRequest;
 import com.example.api.customer.application.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -42,4 +43,12 @@ public class CustomerApplicationService implements CustomerService {
 		return listCustomer;
 	}
 
+	@Override
+	public void updateCustomer(Long id, CustomerUpdateRequest customerUpdateRequest) {
+		log.info("[start] CustomerApplicationService - updateCustomer");
+		Customer customer = customerRepository.findById(id);
+		customer.updateCustomer(customerUpdateRequest);
+		customerRepository.salva(customer);
+		log.info("[finish] CustomerApplicationService - updateCustomer");
+	}
 }

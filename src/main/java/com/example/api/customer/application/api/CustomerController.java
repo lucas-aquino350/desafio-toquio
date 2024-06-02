@@ -41,4 +41,11 @@ public class CustomerController implements CustomerApi {
 		log.info("[finish] CustomerController - findAll");
 		return CustomerDetailedResponse.converte(listCustomer);
 	}
+
+	@Override
+	public void updateCustomer(Long id, CustomerUpdateRequest customerUpdateRequest) {
+		log.info("[start] CustomerController - updateCustomer");
+		customerService.updateCustomer(id, customerUpdateRequest);
+		log.info("[finish] CustomerController - updateCustomer");
+	}
 }
