@@ -1,6 +1,8 @@
 package com.example.api.customer.application.api;
 
 import java.util.List;
+import java.util.function.Consumer;
+
 import com.example.api.customer.application.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -16,9 +18,12 @@ public class CustomerController implements CustomerApi {
 
 	private final CustomerService customerService;
 
-	@GetMapping
-	public List<Customer> findAll() {
-		return customerService.findAll();
+	@Override
+	public CustomerResponse registerCustomer(CustomerRequest customerRequest) {
+		log.info("[start] CustomerController - registerCustomer");
+		CustomerResponse customerCreated = customerService.registerCustomer(customerRequest);
+		log.info("[finish] CustomerController - registerCustomer");
+		return customerCreated;
 	}
 
 	@Override
@@ -27,14 +32,13 @@ public class CustomerController implements CustomerApi {
 		Customer customer = customerService.findById(id);
 		log.info("[finish] CustomerController - findById");
 		return new CustomerDetailedResponse(customer);
-
 	}
 
 	@Override
-	public CustomerResponse registerCustomer(CustomerRequest customerRequest) {
-		log.info("[start] CustomerController - registerCustomer");
-		CustomerResponse customerCreated = customerService.registerCustomer(customerRequest);
-		log.info("[finish] CustomerController - registerCustomer");
-		return customerCreated;
+	public List<CustomerDetailedResponse> findAll() {
+		log.info("[start] CustomerController - findAll");
+		List<Customer> listCustomer = customerService.findAll();
+		log.info("[finish] CustomerController - findAll");
+		return CustomerDetailedResponse.converte(listCustomer);
 	}
 }

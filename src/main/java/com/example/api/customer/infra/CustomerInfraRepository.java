@@ -35,6 +35,9 @@ public class CustomerInfraRepository implements CustomerRepository {
 
     @Override
     public List<Customer> findAllByOrderByNameAsc() {
-        return customerSpringDataJPARepository.findAllByOrderByNameAsc();
+        log.info("[start] CustomerInfraRepository - findAll");
+        List<Customer> lisCustomer = customerSpringDataJPARepository.findAllByOrderByNameAsc();
+        log.info("[finish] CustomerInfraRepository - findAll");
+        return lisCustomer;
     }
 }

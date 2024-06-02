@@ -29,13 +29,17 @@ public class CustomerApplicationService implements CustomerService {
 	@Override
 	public Customer findById(Long id) {
 		log.info("[start] CustomerApplicationService - findById");
+		log.info("[idCustomer] {}", id);
 		Customer customer = customerRepository.findById(id);
 		log.info("[finish] CustomerApplicationService - findById");
 		return customer;
 	}
 
-	public List<Customer> findAll() {
-		return customerRepository.findAllByOrderByNameAsc();
+	public List<Customer> findAll(){
+		log.info("[start] CustomerApplicationService - findAll");
+		List<Customer> listCustomer = customerRepository.findAllByOrderByNameAsc();
+		log.info("[finish] CustomerApplicationService - findAll");
+		return listCustomer;
 	}
 
 }

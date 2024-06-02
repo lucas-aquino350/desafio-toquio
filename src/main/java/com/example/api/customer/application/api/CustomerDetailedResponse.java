@@ -4,6 +4,9 @@ import com.example.api.customer.domain.Customer;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Getter
 @ToString
 public class CustomerDetailedResponse {
@@ -16,5 +19,11 @@ public class CustomerDetailedResponse {
         this.id = customer.getId();
         this.name = customer.getName();
         this.email = customer.getEmail();
+    }
+
+    public static List<CustomerDetailedResponse> converte(List<Customer> listCustomer) {
+        return listCustomer.stream()
+                .map(CustomerDetailedResponse::new)
+                .collect(Collectors.toList());
     }
 }
