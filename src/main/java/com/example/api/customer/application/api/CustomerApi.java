@@ -25,4 +25,8 @@ public interface CustomerApi {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void updateCustomer(@PathVariable Long id, @RequestBody CustomerUpdateRequest customerUpdateRequest);
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    void deleteCustomer(@PathVariable Long id);
+
 }

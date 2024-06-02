@@ -48,4 +48,11 @@ public class CustomerController implements CustomerApi {
 		customerService.updateCustomer(id, customerUpdateRequest);
 		log.info("[finish] CustomerController - updateCustomer");
 	}
+
+	@Override
+	public void deleteCustomer(Long id) {
+		log.info("[start] CustomerController - deleteCustomer");
+		customerService.deleteCustomer(id);
+		log.info("[finish] CustomerController - deleteCustomer");
+	}
 }

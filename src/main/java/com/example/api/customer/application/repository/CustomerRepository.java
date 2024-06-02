@@ -10,4 +10,6 @@ public interface CustomerRepository {
     Customer findById(Long id);
 
     List<Customer> findAllByOrderByNameAsc();
+
+    void deleteCustomer(Customer customer);
 }

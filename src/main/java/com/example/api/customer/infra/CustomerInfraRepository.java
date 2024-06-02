@@ -40,4 +40,11 @@ public class CustomerInfraRepository implements CustomerRepository {
         log.info("[finish] CustomerInfraRepository - findAll");
         return lisCustomer;
     }
+
+    @Override
+    public void deleteCustomer(Customer customer) {
+        log.info("[start] CustomerInfraRepository - deleteCustomer");
+        customerSpringDataJPARepository.delete(customer);
+        log.info("[finish] CustomerInfraRepository - deleteCustomer");
+    }
 }

@@ -51,4 +51,13 @@ public class CustomerApplicationService implements CustomerService {
 		customerRepository.salva(customer);
 		log.info("[finish] CustomerApplicationService - updateCustomer");
 	}
+
+    @Override
+    public void deleteCustomer(Long id) {
+		log.info("[start] CustomerApplicationService - deleteCustomer");
+		log.info("[idCustomer] {}", id);
+		Customer customer = customerRepository.findById(id);
+		customerRepository.deleteCustomer(customer);
+		log.info("[finish] CustomerApplicationService - deleteCustomer");
+    }
 }
