@@ -3,18 +3,18 @@ package com.example.api.customer.domain;
 import com.example.api.customer.application.api.CustomerRequest;
 import com.example.api.customer.application.api.CustomerUpdateRequest;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import lombok.ToString;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@Getter
+@ToString
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Customer {
 
@@ -32,33 +32,21 @@ public class Customer {
 	@Email
 	private String email;
 
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Address> addresses;
+
 	public Customer(CustomerRequest customerRequest) {
 		this.name = customerRequest.getName();
 		this.email = customerRequest.getEmail();
+		this.addresses = new ArrayList<>();
 	}
 
-	public Long getId() {
-		return id;
+	public void addAddress(Address address){
+		this.addresses.add(address);
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
+	public void removeAddress(Address address){
+		this.addresses.remove(address);
 	}
 
 	public void updateCustomer(CustomerUpdateRequest customerUpdateRequest) {
@@ -81,5 +69,4 @@ public class Customer {
 	private boolean isValid(String value) {
 		return value != null && !value.isEmpty();
 	}
-
 }
