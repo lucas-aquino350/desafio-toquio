@@ -1,12 +1,12 @@
 package com.example.api.customer.domain;
 
+import com.example.api.customer.application.api.AddressRequest;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -14,6 +14,9 @@ import javax.persistence.ManyToOne;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Address {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(updatable = false, unique = true, nullable = false)
     private Long idAddress;
     private String rua;
     private Integer numero;
@@ -25,12 +28,12 @@ public class Address {
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
-    public Address(String rua, Integer numero, String bairro, String cidade, String cep, Customer customer) {
-        this.rua = rua;
-        this.numero = numero;
-        this.bairro = bairro;
-        this.cidade = cidade;
-        this.cep = cep;
+    public Address(AddressRequest addressRequest, Customer customer) {
+        this.rua = addressRequest.getRua();
+        this.numero = addressRequest.getNumero();
+        this.bairro = addressRequest.getBairro();
+        this.cidade = addressRequest.getCidade();
+        this.cep = addressRequest.getCep();
         this.customer = customer;
     }
 }

@@ -1,10 +1,10 @@
 package com.example.api.customer.application.service;
 
 import java.util.List;
-import com.example.api.customer.application.api.CustomerRequest;
-import com.example.api.customer.application.api.CustomerResponse;
-import com.example.api.customer.application.api.CustomerUpdateRequest;
+
+import com.example.api.customer.application.api.*;
 import com.example.api.customer.application.repository.CustomerRepository;
+import com.example.api.customer.domain.Address;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -28,10 +28,10 @@ public class CustomerApplicationService implements CustomerService {
 	}
 
 	@Override
-	public Customer findById(Long id) {
+	public Customer findById(Long idCustomer) {
 		log.info("[start] CustomerApplicationService - findById");
-		log.info("[idCustomer] {}", id);
-		Customer customer = customerRepository.findById(id);
+		log.info("[idCustomer] {}", idCustomer);
+		Customer customer = customerRepository.findById(idCustomer);
 		log.info("[finish] CustomerApplicationService - findById");
 		return customer;
 	}
@@ -44,20 +44,32 @@ public class CustomerApplicationService implements CustomerService {
 	}
 
 	@Override
-	public void updateCustomer(Long id, CustomerUpdateRequest customerUpdateRequest) {
+	public void updateCustomer(Long idCustomer, CustomerUpdateRequest customerUpdateRequest) {
 		log.info("[start] CustomerApplicationService - updateCustomer");
-		Customer customer = customerRepository.findById(id);
+		Customer customer = customerRepository.findById(idCustomer);
 		customer.updateCustomer(customerUpdateRequest);
 		customerRepository.salva(customer);
 		log.info("[finish] CustomerApplicationService - updateCustomer");
 	}
 
     @Override
-    public void deleteCustomer(Long id) {
+    public void deleteCustomer(Long idCustomer) {
 		log.info("[start] CustomerApplicationService - deleteCustomer");
-		log.info("[idCustomer] {}", id);
-		Customer customer = customerRepository.findById(id);
+		log.info("[idCustomer] {}", idCustomer);
+		Customer customer = customerRepository.findById(idCustomer);
 		customerRepository.deleteCustomer(customer);
 		log.info("[finish] CustomerApplicationService - deleteCustomer");
     }
+
+	@Override
+	public AddressResponse registerAddressCustomer(Long idCustomer, AddressRequest addressRequest) {
+		log.info("[start] CustomerApplicationService - registerAddressCustomer");
+		log.info("[idCustomer] {}", idCustomer);
+		Customer customer = customerRepository.findById(idCustomer);
+		Address address = new Address(addressRequest, customer);
+		customer.addAddress(address);
+		customerRepository.salva(customer);
+		log.info("[finish] CustomerApplicationService - registerAddressCustomer");
+		return null;
+	}
 }

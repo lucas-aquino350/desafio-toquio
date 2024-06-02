@@ -11,6 +11,6 @@ public class CustomerResponse {
     private Long idCustomer;
 
     public CustomerResponse(Customer customer) {
-        this.idCustomer = customer.getId();
+        this.idCustomer = customer.getIdCustomer();
     }
 }

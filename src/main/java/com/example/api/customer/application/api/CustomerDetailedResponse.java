@@ -11,12 +11,12 @@ import java.util.stream.Collectors;
 @ToString
 public class CustomerDetailedResponse {
 
-    private Long id;
+    private Long idCustomer;
     private String name;
     private String email;
 
     public CustomerDetailedResponse(Customer customer) {
-        this.id = customer.getId();
+        this.idCustomer = customer.getIdCustomer();
         this.name = customer.getName();
         this.email = customer.getEmail();
     }

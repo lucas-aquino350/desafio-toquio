@@ -27,9 +27,9 @@ public class CustomerController implements CustomerApi {
 	}
 
 	@Override
-	public CustomerDetailedResponse findById(Long id) {
+	public CustomerDetailedResponse findById(Long idCustomer) {
 		log.info("[start] CustomerController - findById");
-		Customer customer = customerService.findById(id);
+		Customer customer = customerService.findById(idCustomer);
 		log.info("[finish] CustomerController - findById");
 		return new CustomerDetailedResponse(customer);
 	}
@@ -43,16 +43,24 @@ public class CustomerController implements CustomerApi {
 	}
 
 	@Override
-	public void updateCustomer(Long id, CustomerUpdateRequest customerUpdateRequest) {
+	public void updateCustomer(Long idCustomer, CustomerUpdateRequest customerUpdateRequest) {
 		log.info("[start] CustomerController - updateCustomer");
-		customerService.updateCustomer(id, customerUpdateRequest);
+		customerService.updateCustomer(idCustomer, customerUpdateRequest);
 		log.info("[finish] CustomerController - updateCustomer");
 	}
 
 	@Override
-	public void deleteCustomer(Long id) {
+	public void deleteCustomer(Long idCustomer) {
 		log.info("[start] CustomerController - deleteCustomer");
-		customerService.deleteCustomer(id);
+		customerService.deleteCustomer(idCustomer);
 		log.info("[finish] CustomerController - deleteCustomer");
+	}
+
+	@Override
+	public AddressResponse registerAddressCustomer(Long idCustomer, AddressRequest addressRequest) {
+		log.info("[start] CustomerController - registerAddressCustomer");
+		AddressResponse addresCreated = customerService.registerAddressCustomer(idCustomer, addressRequest);
+		log.info("[finish] CustomerController - registerAddressCustomer");
+		return addresCreated;
 	}
 }
