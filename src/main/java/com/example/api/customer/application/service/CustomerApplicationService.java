@@ -5,6 +5,7 @@ import java.util.List;
 import com.example.api.customer.application.api.*;
 import com.example.api.customer.application.repository.CustomerRepository;
 import com.example.api.customer.domain.Address;
+import com.example.api.customer.domain.AddressType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -66,10 +67,14 @@ public class CustomerApplicationService implements CustomerService {
 		log.info("[start] CustomerApplicationService - registerAddressCustomer");
 		log.info("[idCustomer] {}", idCustomer);
 		Customer customer = customerRepository.findById(idCustomer);
+		if(addressRequest.getAddressType().equals(AddressType.PRINCIPAL)) {
+			customer.getAddresses().stream().filter(address -> address.getAddressType().equals(AddressType.PRINCIPAL))
+					.forEach(address -> address.alterAddressType(AddressType.SECUNDARIO));
+		}
 		Address address = new Address(addressRequest, customer);
 		customer.addAddress(address);
 		customerRepository.salva(customer);
 		log.info("[finish] CustomerApplicationService - registerAddressCustomer");
-		return null;
+		return new AddressResponse(address);
 	}
 }

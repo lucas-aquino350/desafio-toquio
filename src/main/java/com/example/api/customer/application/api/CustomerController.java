@@ -1,12 +1,9 @@
 package com.example.api.customer.application.api;
 
 import java.util.List;
-import java.util.function.Consumer;
-
 import com.example.api.customer.application.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.api.customer.domain.Customer;
@@ -59,8 +56,9 @@ public class CustomerController implements CustomerApi {
 	@Override
 	public AddressResponse registerAddressCustomer(Long idCustomer, AddressRequest addressRequest) {
 		log.info("[start] CustomerController - registerAddressCustomer");
-		AddressResponse addresCreated = customerService.registerAddressCustomer(idCustomer, addressRequest);
+		AddressResponse addressCreated = customerService.registerAddressCustomer(idCustomer, addressRequest);
 		log.info("[finish] CustomerController - registerAddressCustomer");
-		return addresCreated;
+		return addressCreated;
 	}
 }
+

@@ -1,12 +1,11 @@
 package com.example.api.customer.domain;
 
 import com.example.api.customer.application.api.AddressRequest;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Getter
@@ -18,11 +17,19 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false, unique = true, nullable = false)
     private Long idAddress;
+    @NotBlank
     private String rua;
+    @NotNull
     private Integer numero;
+    @NotBlank
     private String bairro;
+    @NotBlank
     private String cidade;
+    @NotBlank
     private String cep;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private AddressType addressType;
 
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
@@ -34,6 +41,11 @@ public class Address {
         this.bairro = addressRequest.getBairro();
         this.cidade = addressRequest.getCidade();
         this.cep = addressRequest.getCep();
+        this.addressType = addressRequest.getAddressType();
         this.customer = customer;
+    }
+
+    public void alterAddressType(AddressType addressType) {
+        this.addressType = addressType;
     }
 }
