@@ -1,38 +1,64 @@
 package com.example.api.customer.application.api;
 
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import com.example.api.customer.application.service.CustomerService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
 import com.example.api.customer.domain.Customer;
-import com.example.api.customer.application.service.CustomerService;
 
 @RestController
-@RequestMapping("/customers")
-public class CustomerController {
+@RequiredArgsConstructor
+@Log4j2
+public class CustomerController implements CustomerApi {
 
-	private CustomerService service;
+	private final CustomerService customerService;
 
-	@Autowired
-	public CustomerController(CustomerService service) {
-		this.service = service;
+	@Override
+	public CustomerResponse registerCustomer(CustomerRequest customerRequest) {
+		log.info("[start] CustomerController - registerCustomer");
+		CustomerResponse customerCreated = customerService.registerCustomer(customerRequest);
+		log.info("[finish] CustomerController - registerCustomer");
+		return customerCreated;
 	}
 
-	@GetMapping
-	public List<Customer> findAll() {
-		return service.findAll();
+	@Override
+	public CustomerDetailedResponse findById(Long idCustomer) {
+		log.info("[start] CustomerController - findById");
+		Customer customer = customerService.findById(idCustomer);
+		log.info("[finish] CustomerController - findById");
+		return new CustomerDetailedResponse(customer);
 	}
 
-	@GetMapping("/{id}")
-	public Customer findById(@PathVariable Long id) {
-		return service.findById(id)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer not found"));
+	@Override
+	public List<CustomerDetailedResponse> findAll() {
+		log.info("[start] CustomerController - findAll");
+		List<Customer> listCustomer = customerService.findAll();
+		log.info("[finish] CustomerController - findAll");
+		return CustomerDetailedResponse.converteList(listCustomer);
 	}
 
+	@Override
+	public void updateCustomer(Long idCustomer, CustomerUpdateRequest customerUpdateRequest) {
+		log.info("[start] CustomerController - updateCustomer");
+		customerService.updateCustomer(idCustomer, customerUpdateRequest);
+		log.info("[finish] CustomerController - updateCustomer");
+	}
+
+	@Override
+	public void deleteCustomer(Long idCustomer) {
+		log.info("[start] CustomerController - deleteCustomer");
+		customerService.deleteCustomer(idCustomer);
+		log.info("[finish] CustomerController - deleteCustomer");
+	}
+
+	@Override
+	public AddressResponse registerAddressCustomer(Long idCustomer, AddressRequest addressRequest) {
+		log.info("[start] CustomerController - registerAddressCustomer");
+		AddressResponse addressCreated = customerService.registerAddressCustomer(idCustomer, addressRequest);
+		log.info("[finish] CustomerController - registerAddressCustomer");
+		return addressCreated;
+	}
 }
+

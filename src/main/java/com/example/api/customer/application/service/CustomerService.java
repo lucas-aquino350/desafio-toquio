@@ -1,30 +1,19 @@
 package com.example.api.customer.application.service;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
+import com.example.api.customer.application.api.*;
 import com.example.api.customer.domain.Customer;
-import com.example.api.customer.application.repository.CustomerRepository;
+import java.util.List;
 
-@Service
-public class CustomerService {
+public interface CustomerService {
+    CustomerResponse registerCustomer(CustomerRequest customerRequest);
 
-	private CustomerRepository repository;
+    Customer findById(Long idCustomer);
 
-	@Autowired
-	public CustomerService(CustomerRepository repository) {
-		this.repository = repository;
-	}
+    List<Customer> findAll();
 
-	public List<Customer> findAll() {
-		return repository.findAllByOrderByNameAsc();
-	}
+    void updateCustomer(Long idCustomer, CustomerUpdateRequest customerUpdateRequest);
 
-	public Optional<Customer> findById(Long id) {
-		return repository.findById(id);
-	}
+    void deleteCustomer(Long idCustomer);
 
+    AddressResponse registerAddressCustomer(Long idCustomer, AddressRequest addressRequest);
 }
