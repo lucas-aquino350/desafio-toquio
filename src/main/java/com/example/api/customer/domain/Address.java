@@ -17,13 +17,13 @@ public class Address {
     @Column(updatable = false, unique = true, nullable = false)
     private Long idAddress;
     @NotBlank
-    private String rua;
+    private String street;
     @NotNull
-    private Integer numero;
+    private Integer number;
     @NotBlank
-    private String bairro;
+    private String neighborhood;
     @NotBlank
-    private String cidade;
+    private String city;
     @NotBlank
     private String cep;
     @NotNull
@@ -35,10 +35,10 @@ public class Address {
     private Customer customer;
 
     public Address(AddressRequest addressRequest, Customer customer) {
-        this.rua = addressRequest.getRua();
-        this.numero = addressRequest.getNumero();
-        this.bairro = addressRequest.getBairro();
-        this.cidade = addressRequest.getCidade();
+        this.street = addressRequest.getStreet();
+        this.number = addressRequest.getNumber();
+        this.neighborhood = addressRequest.getNeighborhood();
+        this.city = addressRequest.getCity();
         this.cep = addressRequest.getCep();
         this.addressType = addressRequest.getAddressType();
         this.customer = customer;

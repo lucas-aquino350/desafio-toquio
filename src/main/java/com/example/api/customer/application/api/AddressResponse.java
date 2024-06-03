@@ -9,18 +9,18 @@ import lombok.ToString;
 @ToString
 public class AddressResponse {
 
-    private String rua;
-    private Integer numero;
-    private String bairro;
-    private String cidade;
+    private String street;
+    private Integer number;
+    private String neighborhood;
+    private String city;
     private String cep;
     private AddressType addressType;
 
     public AddressResponse(Address address) {
-        this.rua = address.getRua();
-        this.numero = address.getNumero();
-        this.bairro = address.getBairro();
-        this.cidade = address.getCidade();
+        this.street = address.getStreet();
+        this.number = address.getNumber();
+        this.neighborhood = address.getNeighborhood();
+        this.city = address.getCity();
         this.cep = address.getCep();
         this.addressType = address.getAddressType();
     }

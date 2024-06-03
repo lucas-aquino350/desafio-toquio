@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -48,12 +47,12 @@ public class Customer {
 
 	public void addOrUpdateAddress(Address address) {
 		if (address.getAddressType().equals(AddressType.PRINCIPAL)) {
-			getPrincipalAddress().ifPresent(ad -> address.alterAddressType(AddressType.SECUNDARIO));
+			this.getPrincipalAddress().ifPresent(ad -> address.alterAddressType(AddressType.SECUNDARIO));
 		}
 		addAddress(address);
 	}
 
-	public void addAddress(Address address){
+	private void addAddress(Address address){
 		this.addresses.add(address);
 	}
 

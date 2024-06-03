@@ -11,15 +11,16 @@ import javax.validation.constraints.NotNull;
 public class AddressRequest {
 
     @NotBlank
-    private String rua;
+    private String street;
     @NotNull
-    private Integer numero;
+    private Integer number;
     @NotBlank
-    private String bairro;
+    private String neighborhood;
     @NotBlank
-    private String cidade;
+    private String city;
     @NotBlank
     private String cep;
     @NotNull
     private AddressType addressType;
+
 }
