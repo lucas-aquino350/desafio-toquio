@@ -1,7 +1,7 @@
 package com.example.api.customer.application.service;
 
 import com.example.api.customer.application.api.*;
-import com.example.api.customer.domain.Customer;
+
 import java.util.List;
 
 public interface CustomerService {
@@ -17,5 +17,7 @@ public interface CustomerService {
 
     AddressResponse registerAddressCustomer(Long idCustomer, AddressRequest addressRequest);
 
-    List<AddressListResponse> findAddressesByIdCustormer(Long idCustomer);
+    List<AddressListResponse> findAddressesByIdCustomer(Long idCustomer);
+
+    void deleteAddressCustomer(Long idCustomer, Long idAddress);
 }

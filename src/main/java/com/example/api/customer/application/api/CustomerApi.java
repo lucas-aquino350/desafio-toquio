@@ -1,6 +1,5 @@
 package com.example.api.customer.application.api;
 
-import com.example.api.customer.domain.Address;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
@@ -37,6 +36,10 @@ public interface CustomerApi {
 
     @GetMapping("/listAddress/{idCustomer}")
     @ResponseStatus(HttpStatus.OK)
-    List<AddressListResponse> findAddressesByIdCustormer ( @PathVariable Long idCustomer);
+    List<AddressListResponse> findAddressesByIdCustomer(@PathVariable Long idCustomer);
+
+    @DeleteMapping("/{idCustomer}/address/{idAddress}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    void deleteAddressCustomer(@PathVariable Long idCustomer, @PathVariable Long idAddress);
 
 }

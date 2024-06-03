@@ -78,12 +78,21 @@ public class CustomerApplicationService implements CustomerService {
 	}
 
 	@Override
-	public List<AddressListResponse> findAddressesByIdCustormer(Long idCustomer) {
-		log.info("[start] CustomerApplicationService - findAddressesByIdCustormer");
+	public List<AddressListResponse> findAddressesByIdCustomer(Long idCustomer) {
+		log.info("[start] CustomerApplicationService - findAddressesByIdCustomer");
 		log.info("[idCustomer] {}", idCustomer);
 		Customer customer = customerRepository.findById(idCustomer);
 		List<Address> listAddress = customer.getAddresses();
-		log.info("[finish] CustomerApplicationService - findAddressesByIdCustormer");
+		log.info("[finish] CustomerApplicationService - findAddressesByIdCustomer");
 		return AddressListResponse.converteList(listAddress);
+	}
+
+	@Override
+	public void deleteAddressCustomer(Long idCustomer, Long idAddress) {
+		log.info("[start] CustomerApplicationService - deleteAddressCustomer");
+		Customer customer = customerRepository.findById(idCustomer);
+		customer.removeAddress(idAddress);
+		customerRepository.salva(customer);
+		log.info("[finish] CustomerApplicationService - deleteAddressCustomer");
 	}
 }

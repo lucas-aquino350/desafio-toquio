@@ -62,11 +62,19 @@ public class CustomerController implements CustomerApi {
 	}
 
 	@Override
-	public List<AddressListResponse> findAddressesByIdCustormer(Long idCustomer) {
-		log.info("[start] CustomerController - findAddressesByIdCustormer");
-		List<AddressListResponse> listAddress = customerService.findAddressesByIdCustormer(idCustomer);
-		log.info("[finish] CustomerController - findAddressesByIdCustormer");
+	public List<AddressListResponse> findAddressesByIdCustomer(Long idCustomer) {
+		log.info("[start] CustomerController - findAddressesByIdCustomer");
+		List<AddressListResponse> listAddress = customerService.findAddressesByIdCustomer(idCustomer);
+		log.info("[finish] CustomerController - findAddressesByIdCustomer");
 		return listAddress;
 	}
+
+	@Override
+	public void deleteAddressCustomer(Long idCustomer, Long idAddress) {
+		log.info("[start] CustomerController - deleteAddressCustomer");
+		customerService.deleteAddressCustomer(idCustomer, idAddress);
+		log.info("[finish] CustomerController - deleteAddressCustomer");
+	}
 }
+
 
