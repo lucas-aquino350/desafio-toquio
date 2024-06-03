@@ -11,6 +11,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Getter
@@ -47,6 +48,12 @@ public class Customer {
 
 	public void removeAddress(Address address){
 		this.addresses.remove(address);
+	}
+
+	public Optional<Address> getPrincipalAddress() {
+		return addresses.stream()
+				.filter(address -> address.getAddressType() == AddressType.PRINCIPAL)
+				.findFirst();
 	}
 
 	public void updateCustomer(CustomerUpdateRequest customerUpdateRequest) {

@@ -36,7 +36,7 @@ public class CustomerController implements CustomerApi {
 		log.info("[start] CustomerController - findAll");
 		List<Customer> listCustomer = customerService.findAll();
 		log.info("[finish] CustomerController - findAll");
-		return CustomerDetailedResponse.converte(listCustomer);
+		return CustomerDetailedResponse.converteList(listCustomer);
 	}
 
 	@Override
