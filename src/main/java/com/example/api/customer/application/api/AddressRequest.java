@@ -2,9 +2,7 @@ package com.example.api.customer.application.api;
 
 import com.example.api.customer.domain.AddressType;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 

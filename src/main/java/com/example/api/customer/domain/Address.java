@@ -2,7 +2,6 @@ package com.example.api.customer.domain;
 
 import com.example.api.customer.application.api.AddressRequest;
 import lombok.*;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

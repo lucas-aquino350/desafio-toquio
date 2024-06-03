@@ -3,7 +3,6 @@ package com.example.api.customer.application.service;
 import com.example.api.customer.application.api.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
 import java.util.List;
 
 public interface CustomerService {

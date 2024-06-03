@@ -1,11 +1,9 @@
 package com.example.api.customer.application.service;
 
 import java.util.List;
-
 import com.example.api.customer.application.api.*;
 import com.example.api.customer.application.repository.CustomerRepository;
 import com.example.api.customer.domain.Address;
-import com.example.api.customer.domain.AddressType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
@@ -94,4 +92,5 @@ public class CustomerApplicationService implements CustomerService {
 		customerRepository.salva(customer);
 		log.info("[finish] CustomerApplicationService - deleteAddressCustomer");
 	}
+
 }

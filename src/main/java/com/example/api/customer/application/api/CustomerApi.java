@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-
 @RestController
 @RequestMapping("v1/customer")
 public interface CustomerApi {
@@ -27,7 +26,7 @@ public interface CustomerApi {
 
     @PatchMapping("/{idCustomer}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void updateCustomer(@PathVariable Long idCustomer, @RequestBody CustomerUpdateRequest customerUpdateRequest);
+    void updateCustomer(@PathVariable Long idCustomer, @Valid @RequestBody CustomerUpdateRequest customerUpdateRequest);
 
     @DeleteMapping("/{idCustomer}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

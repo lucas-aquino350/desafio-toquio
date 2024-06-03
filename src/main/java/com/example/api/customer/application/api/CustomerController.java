@@ -8,8 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.api.customer.domain.Customer;
-
 @RestController
 @RequiredArgsConstructor
 @Log4j2
@@ -77,6 +75,5 @@ public class CustomerController implements CustomerApi {
 		customerService.deleteAddressCustomer(idCustomer, idAddress);
 		log.info("[finish] CustomerController - deleteAddressCustomer");
 	}
+
 }
-
-

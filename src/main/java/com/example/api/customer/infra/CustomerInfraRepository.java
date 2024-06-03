@@ -10,7 +10,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.server.ResponseStatusException;
-import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -54,4 +53,5 @@ public class CustomerInfraRepository implements CustomerRepository {
         customerSpringDataJPARepository.delete(customer);
         log.info("[finish] CustomerInfraRepository - deleteCustomer");
     }
+
 }
