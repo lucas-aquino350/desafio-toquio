@@ -45,6 +45,13 @@ public class Customer {
 		this.addresses = new ArrayList<>();
 	}
 
+	public void addOrUpdateAddress(Address address) {
+		if (address.getAddressType().equals(AddressType.PRINCIPAL)) {
+			getPrincipalAddress().ifPresent(ad -> address.alterAddressType(AddressType.SECUNDARIO));
+		}
+		addAddress(address);
+	}
+
 	public void addAddress(Address address){
 		this.addresses.add(address);
 	}

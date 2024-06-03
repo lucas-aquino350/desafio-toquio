@@ -69,11 +69,8 @@ public class CustomerApplicationService implements CustomerService {
 		log.info("[start] CustomerApplicationService - registerAddressCustomer");
 		log.info("[idCustomer] {}", idCustomer);
 		Customer customer = customerRepository.findById(idCustomer);
-		if(addressRequest.getAddressType().equals(AddressType.PRINCIPAL)) {
-			customer.getPrincipalAddress().ifPresent(address -> address.alterAddressType(AddressType.SECUNDARIO));
-		}
 		Address address = new Address(addressRequest, customer);
-		customer.addAddress(address);
+		customer.addOrUpdateAddress(address);
 		customerRepository.salva(customer);
 		log.info("[finish] CustomerApplicationService - registerAddressCustomer");
 		return new AddressResponse(address);
