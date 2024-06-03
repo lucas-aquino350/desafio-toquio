@@ -4,9 +4,9 @@ import java.util.List;
 import com.example.api.customer.application.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.example.api.customer.domain.Customer;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,17 +26,17 @@ public class CustomerController implements CustomerApi {
 	@Override
 	public CustomerDetailedResponse findById(Long idCustomer) {
 		log.info("[start] CustomerController - findById");
-		Customer customer = customerService.findById(idCustomer);
+		CustomerDetailedResponse customer = customerService.findById(idCustomer);
 		log.info("[finish] CustomerController - findById");
-		return new CustomerDetailedResponse(customer);
+		return customer;
 	}
 
 	@Override
-	public List<CustomerDetailedResponse> findAll() {
+	public Page<CustomerDetailedResponse> findAll(Pageable pageable) {
 		log.info("[start] CustomerController - findAll");
-		List<Customer> listCustomer = customerService.findAll();
+		Page<CustomerDetailedResponse> listCustomer = customerService.findAll(pageable);
 		log.info("[finish] CustomerController - findAll");
-		return CustomerDetailedResponse.converteList(listCustomer);
+		return listCustomer;
 	}
 
 	@Override
@@ -60,5 +60,20 @@ public class CustomerController implements CustomerApi {
 		log.info("[finish] CustomerController - registerAddressCustomer");
 		return addressCreated;
 	}
-}
 
+	@Override
+	public List<AddressListResponse> findAddressesByIdCustomer(Long idCustomer) {
+		log.info("[start] CustomerController - findAddressesByIdCustomer");
+		List<AddressListResponse> listAddress = customerService.findAddressesByIdCustomer(idCustomer);
+		log.info("[finish] CustomerController - findAddressesByIdCustomer");
+		return listAddress;
+	}
+
+	@Override
+	public void deleteAddressCustomer(Long idCustomer, Long idAddress) {
+		log.info("[start] CustomerController - deleteAddressCustomer");
+		customerService.deleteAddressCustomer(idCustomer, idAddress);
+		log.info("[finish] CustomerController - deleteAddressCustomer");
+	}
+
+}

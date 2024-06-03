@@ -2,10 +2,13 @@ package com.example.api.customer.domain;
 
 import com.example.api.customer.application.api.CustomerRequest;
 import com.example.api.customer.application.api.CustomerUpdateRequest;
+import com.example.api.handler.APIException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.http.HttpStatus;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -42,12 +45,27 @@ public class Customer {
 		this.addresses = new ArrayList<>();
 	}
 
-	public void addAddress(Address address){
+	public void addOrUpdateAddress(Address address) {
+		if (address.getAddressType().equals(AddressType.PRINCIPAL)) {
+			getPrincipalAddress().ifPresent(a -> a.alterAddressType(AddressType.SECUNDARIO));
+		}
+		addAddress(address);
+	}
+
+	private void addAddress(Address address){
 		this.addresses.add(address);
 	}
 
-	public void removeAddress(Address address){
+	public void removeAddress(Long idAddress){
+		Address address = findAddressById(idAddress);
 		this.addresses.remove(address);
+	}
+
+	public Address findAddressById(Long idAddress) {
+		return this.addresses.stream()
+				.filter(address -> address.getIdAddress().equals(idAddress))
+				.findFirst()
+				.orElseThrow(() -> APIException.build(HttpStatus.NOT_FOUND, "Address not found"));
 	}
 
 	public Optional<Address> getPrincipalAddress() {

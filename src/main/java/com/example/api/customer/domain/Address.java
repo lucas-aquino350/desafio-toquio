@@ -2,10 +2,10 @@ package com.example.api.customer.domain;
 
 import com.example.api.customer.application.api.AddressRequest;
 import lombok.*;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Getter
@@ -18,14 +18,15 @@ public class Address {
     @Column(updatable = false, unique = true, nullable = false)
     private Long idAddress;
     @NotBlank
-    private String rua;
+    private String street;
     @NotNull
-    private Integer numero;
+    private Integer number;
     @NotBlank
-    private String bairro;
+    private String neighborhood;
     @NotBlank
-    private String cidade;
+    private String city;
     @NotBlank
+    @Pattern(regexp = "\\d{5}-\\d{3}|\\d{8}", message = "CEP FORMAT INVALID")
     private String cep;
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -36,10 +37,10 @@ public class Address {
     private Customer customer;
 
     public Address(AddressRequest addressRequest, Customer customer) {
-        this.rua = addressRequest.getRua();
-        this.numero = addressRequest.getNumero();
-        this.bairro = addressRequest.getBairro();
-        this.cidade = addressRequest.getCidade();
+        this.street = addressRequest.getStreet();
+        this.number = addressRequest.getNumber();
+        this.neighborhood = addressRequest.getNeighborhood();
+        this.city = addressRequest.getCity();
         this.cep = addressRequest.getCep();
         this.addressType = addressRequest.getAddressType();
         this.customer = customer;

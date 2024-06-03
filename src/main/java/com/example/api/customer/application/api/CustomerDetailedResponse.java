@@ -4,7 +4,6 @@ import com.example.api.customer.domain.Address;
 import com.example.api.customer.domain.Customer;
 import lombok.Getter;
 import lombok.ToString;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -22,10 +21,10 @@ public class CustomerDetailedResponse {
         this.idCustomer = customer.getIdCustomer();
         this.name = customer.getName();
         this.email = customer.getEmail();
-        this.address = converte(customer.getPrincipalAddress());
+        this.address = convert(customer.getPrincipalAddress());
     }
 
-    private AddressResponse converte(Optional<Address> principalAddress) {
+    private AddressResponse convert(Optional<Address> principalAddress) {
         return principalAddress
                 .map(AddressResponse::new)
                 .orElse(null);

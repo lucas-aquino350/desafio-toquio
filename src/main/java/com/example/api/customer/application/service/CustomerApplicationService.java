@@ -1,13 +1,13 @@
 package com.example.api.customer.application.service;
 
 import java.util.List;
-
 import com.example.api.customer.application.api.*;
 import com.example.api.customer.application.repository.CustomerRepository;
 import com.example.api.customer.domain.Address;
-import com.example.api.customer.domain.AddressType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.api.customer.domain.Customer;
@@ -29,19 +29,19 @@ public class CustomerApplicationService implements CustomerService {
 	}
 
 	@Override
-	public Customer findById(Long idCustomer) {
+	public CustomerDetailedResponse findById(Long idCustomer) {
 		log.info("[start] CustomerApplicationService - findById");
 		log.info("[idCustomer] {}", idCustomer);
 		Customer customer = customerRepository.findById(idCustomer);
 		log.info("[finish] CustomerApplicationService - findById");
-		return customer;
+		return new CustomerDetailedResponse(customer);
 	}
 
-	public List<Customer> findAll(){
+	public Page<CustomerDetailedResponse> findAll(Pageable pageable){
 		log.info("[start] CustomerApplicationService - findAll");
-		List<Customer> listCustomer = customerRepository.findAllByOrderByNameAsc();
+		Page<Customer> pageCustomer = customerRepository.findAllByOrderByNameAsc(pageable);
 		log.info("[finish] CustomerApplicationService - findAll");
-		return listCustomer;
+		return pageCustomer.map(CustomerDetailedResponse::new);
 	}
 
 	@Override
@@ -67,13 +67,30 @@ public class CustomerApplicationService implements CustomerService {
 		log.info("[start] CustomerApplicationService - registerAddressCustomer");
 		log.info("[idCustomer] {}", idCustomer);
 		Customer customer = customerRepository.findById(idCustomer);
-		if(addressRequest.getAddressType().equals(AddressType.PRINCIPAL)) {
-			customer.getPrincipalAddress().ifPresent(address -> address.alterAddressType(AddressType.SECUNDARIO));
-		}
 		Address address = new Address(addressRequest, customer);
-		customer.addAddress(address);
+		customer.addOrUpdateAddress(address);
 		customerRepository.salva(customer);
 		log.info("[finish] CustomerApplicationService - registerAddressCustomer");
 		return new AddressResponse(address);
 	}
+
+	@Override
+	public List<AddressListResponse> findAddressesByIdCustomer(Long idCustomer) {
+		log.info("[start] CustomerApplicationService - findAddressesByIdCustomer");
+		log.info("[idCustomer] {}", idCustomer);
+		Customer customer = customerRepository.findById(idCustomer);
+		List<Address> listAddress = customer.getAddresses();
+		log.info("[finish] CustomerApplicationService - findAddressesByIdCustomer");
+		return AddressListResponse.converteList(listAddress);
+	}
+
+	@Override
+	public void deleteAddressCustomer(Long idCustomer, Long idAddress) {
+		log.info("[start] CustomerApplicationService - deleteAddressCustomer");
+		Customer customer = customerRepository.findById(idCustomer);
+		customer.removeAddress(idAddress);
+		customerRepository.salva(customer);
+		log.info("[finish] CustomerApplicationService - deleteAddressCustomer");
+	}
+
 }

@@ -13,4 +13,5 @@ public class CustomerResponse {
     public CustomerResponse(Customer customer) {
         this.idCustomer = customer.getIdCustomer();
     }
+
 }

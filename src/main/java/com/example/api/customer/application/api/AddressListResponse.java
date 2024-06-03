@@ -4,11 +4,14 @@ import com.example.api.customer.domain.Address;
 import com.example.api.customer.domain.AddressType;
 import lombok.Getter;
 import lombok.ToString;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @ToString
-public class AddressResponse {
+public class AddressListResponse {
 
+    private Long idAddress;
     private String street;
     private Integer number;
     private String neighborhood;
@@ -16,12 +19,19 @@ public class AddressResponse {
     private String cep;
     private AddressType addressType;
 
-    public AddressResponse(Address address) {
+    public AddressListResponse(Address address) {
+        this.idAddress = address.getIdAddress();
         this.street = address.getStreet();
         this.number = address.getNumber();
         this.neighborhood = address.getNeighborhood();
         this.city = address.getCity();
         this.cep = address.getCep();
         this.addressType = address.getAddressType();
+    }
+
+    public static List<AddressListResponse> converteList(List<Address> listAddress) {
+        return listAddress.stream()
+                .map(AddressListResponse::new)
+                .collect(Collectors.toList());
     }
 }

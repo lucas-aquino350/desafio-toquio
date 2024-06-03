@@ -1,15 +1,16 @@
 package com.example.api.customer.application.repository;
 
 import com.example.api.customer.domain.Customer;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface CustomerRepository {
     Customer salva(Customer customer);
 
-    Customer findById(Long id);
+    Customer findById(Long idCustomer);
 
-    List<Customer> findAllByOrderByNameAsc();
+    Page<Customer> findAllByOrderByNameAsc(Pageable pageable);
 
     void deleteCustomer(Customer customer);
+
 }

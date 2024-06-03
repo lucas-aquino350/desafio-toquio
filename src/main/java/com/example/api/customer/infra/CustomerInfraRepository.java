@@ -2,13 +2,15 @@ package com.example.api.customer.infra;
 
 import com.example.api.customer.application.repository.CustomerRepository;
 import com.example.api.customer.domain.Customer;
+import com.example.api.handler.APIException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.server.ResponseStatusException;
-import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -23,25 +25,25 @@ public class CustomerInfraRepository implements CustomerRepository {
         try {
             customerSpringDataJPARepository.save(customer);
         } catch (DataIntegrityViolationException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "There is duplicate data!");
+            throw APIException.build(HttpStatus.BAD_REQUEST, "There is duplicate data!");
         }
         log.info("[finish] CustomerInfraRepository - salva");
         return customer;
     }
 
     @Override
-    public Customer findById(Long id) {
+    public Customer findById(Long idCustomer) {
         log.info("[start] CustomerInfraRepository - findById");
-        Customer customer = customerSpringDataJPARepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer not found!"));
+        Customer customer = customerSpringDataJPARepository.findById(idCustomer)
+                .orElseThrow(() -> APIException.build(HttpStatus.NOT_FOUND, "Customer not found"));
         log.info("[finish] CustomerInfraRepository - findById");
         return customer;
     }
 
     @Override
-    public List<Customer> findAllByOrderByNameAsc() {
+    public Page<Customer> findAllByOrderByNameAsc(Pageable pageable) {
         log.info("[start] CustomerInfraRepository - findAll");
-        List<Customer> lisCustomer = customerSpringDataJPARepository.findAllByOrderByNameAsc();
+        Page<Customer> lisCustomer = customerSpringDataJPARepository.findAllByOrderByNameAsc(pageable);
         log.info("[finish] CustomerInfraRepository - findAll");
         return lisCustomer;
     }
@@ -52,4 +54,5 @@ public class CustomerInfraRepository implements CustomerRepository {
         customerSpringDataJPARepository.delete(customer);
         log.info("[finish] CustomerInfraRepository - deleteCustomer");
     }
+
 }

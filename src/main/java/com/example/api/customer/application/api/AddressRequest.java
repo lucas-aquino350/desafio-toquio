@@ -2,9 +2,7 @@ package com.example.api.customer.application.api;
 
 import com.example.api.customer.domain.AddressType;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -13,15 +11,16 @@ import javax.validation.constraints.NotNull;
 public class AddressRequest {
 
     @NotBlank
-    private String rua;
+    private String street;
     @NotNull
-    private Integer numero;
+    private Integer number;
     @NotBlank
-    private String bairro;
+    private String neighborhood;
     @NotBlank
-    private String cidade;
+    private String city;
     @NotBlank
     private String cep;
     @NotNull
     private AddressType addressType;
+
 }
