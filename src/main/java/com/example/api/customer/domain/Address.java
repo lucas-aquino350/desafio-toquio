@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Getter
@@ -25,6 +26,7 @@ public class Address {
     @NotBlank
     private String city;
     @NotBlank
+    @Pattern(regexp = "\\d{5}-\\d{3}|\\d{8}", message = "CEP FORMAT INVALID")
     private String cep;
     @NotNull
     @Enumerated(EnumType.STRING)

@@ -47,7 +47,7 @@ public class Customer {
 
 	public void addOrUpdateAddress(Address address) {
 		if (address.getAddressType().equals(AddressType.PRINCIPAL)) {
-			this.getPrincipalAddress().ifPresent(ad -> address.alterAddressType(AddressType.SECUNDARIO));
+			getPrincipalAddress().ifPresent(a -> a.alterAddressType(AddressType.SECUNDARIO));
 		}
 		addAddress(address);
 	}

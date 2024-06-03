@@ -34,7 +34,7 @@ public interface CustomerApi {
 
     @PostMapping("/{idCustomer}/address")
     @ResponseStatus(HttpStatus.CREATED)
-    AddressResponse registerAddressCustomer(@PathVariable Long idCustomer, @RequestBody AddressRequest addressRequest);
+    AddressResponse registerAddressCustomer(@PathVariable Long idCustomer, @Valid @RequestBody AddressRequest addressRequest);
 
     @GetMapping("/listAddress/{idCustomer}")
     @ResponseStatus(HttpStatus.OK)
