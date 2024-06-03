@@ -4,6 +4,7 @@ import com.example.api.customer.application.repository.CustomerRepository;
 import com.example.api.customer.domain.Customer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.server.ResponseStatusException;
@@ -19,7 +20,11 @@ public class CustomerInfraRepository implements CustomerRepository {
     @Override
     public Customer salva(Customer customer) {
         log.info("[start] CustomerInfraRepository - salva");
-        customerSpringDataJPARepository.save(customer);
+        try {
+            customerSpringDataJPARepository.save(customer);
+        } catch (DataIntegrityViolationException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "There is duplicate data!");
+        }
         log.info("[finish] CustomerInfraRepository - salva");
         return customer;
     }
@@ -28,7 +33,7 @@ public class CustomerInfraRepository implements CustomerRepository {
     public Customer findById(Long id) {
         log.info("[start] CustomerInfraRepository - findById");
         Customer customer = customerSpringDataJPARepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer not found!"));
         log.info("[finish] CustomerInfraRepository - findById");
         return customer;
     }
