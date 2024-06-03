@@ -7,13 +7,15 @@ import java.util.List;
 public interface CustomerService {
     CustomerResponse registerCustomer(CustomerRequest customerRequest);
 
-    Customer findById(Long idCustomer);
+    CustomerDetailedResponse findById(Long idCustomer);
 
-    List<Customer> findAll();
+    List<CustomerDetailedResponse> findAll();
 
     void updateCustomer(Long idCustomer, CustomerUpdateRequest customerUpdateRequest);
 
     void deleteCustomer(Long idCustomer);
 
     AddressResponse registerAddressCustomer(Long idCustomer, AddressRequest addressRequest);
+
+    List<AddressListResponse> findAddressesByIdCustormer(Long idCustomer);
 }

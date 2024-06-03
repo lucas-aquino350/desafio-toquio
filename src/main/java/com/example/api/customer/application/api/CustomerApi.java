@@ -35,4 +35,8 @@ public interface CustomerApi {
     @ResponseStatus(HttpStatus.CREATED)
     AddressResponse registerAddressCustomer(@PathVariable Long idCustomer, @RequestBody AddressRequest addressRequest);
 
+    @GetMapping("/listAddress/{idCustomer}")
+    @ResponseStatus(HttpStatus.OK)
+    List<AddressListResponse> findAddressesByIdCustormer ( @PathVariable Long idCustomer);
+
 }

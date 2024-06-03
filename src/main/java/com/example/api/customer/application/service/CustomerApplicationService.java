@@ -29,19 +29,19 @@ public class CustomerApplicationService implements CustomerService {
 	}
 
 	@Override
-	public Customer findById(Long idCustomer) {
+	public CustomerDetailedResponse findById(Long idCustomer) {
 		log.info("[start] CustomerApplicationService - findById");
 		log.info("[idCustomer] {}", idCustomer);
 		Customer customer = customerRepository.findById(idCustomer);
 		log.info("[finish] CustomerApplicationService - findById");
-		return customer;
+		return new CustomerDetailedResponse(customer);
 	}
 
-	public List<Customer> findAll(){
+	public List<CustomerDetailedResponse> findAll(){
 		log.info("[start] CustomerApplicationService - findAll");
 		List<Customer> listCustomer = customerRepository.findAllByOrderByNameAsc();
 		log.info("[finish] CustomerApplicationService - findAll");
-		return listCustomer;
+		return CustomerDetailedResponse.converteList(listCustomer);
 	}
 
 	@Override
@@ -75,5 +75,15 @@ public class CustomerApplicationService implements CustomerService {
 		customerRepository.salva(customer);
 		log.info("[finish] CustomerApplicationService - registerAddressCustomer");
 		return new AddressResponse(address);
+	}
+
+	@Override
+	public List<AddressListResponse> findAddressesByIdCustormer(Long idCustomer) {
+		log.info("[start] CustomerApplicationService - findAddressesByIdCustormer");
+		log.info("[idCustomer] {}", idCustomer);
+		Customer customer = customerRepository.findById(idCustomer);
+		List<Address> listAddress = customer.getAddresses();
+		log.info("[finish] CustomerApplicationService - findAddressesByIdCustormer");
+		return AddressListResponse.converteList(listAddress);
 	}
 }

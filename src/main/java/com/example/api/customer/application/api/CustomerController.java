@@ -26,17 +26,17 @@ public class CustomerController implements CustomerApi {
 	@Override
 	public CustomerDetailedResponse findById(Long idCustomer) {
 		log.info("[start] CustomerController - findById");
-		Customer customer = customerService.findById(idCustomer);
+		CustomerDetailedResponse customer = customerService.findById(idCustomer);
 		log.info("[finish] CustomerController - findById");
-		return new CustomerDetailedResponse(customer);
+		return customer;
 	}
 
 	@Override
 	public List<CustomerDetailedResponse> findAll() {
 		log.info("[start] CustomerController - findAll");
-		List<Customer> listCustomer = customerService.findAll();
+		List<CustomerDetailedResponse> listCustomer = customerService.findAll();
 		log.info("[finish] CustomerController - findAll");
-		return CustomerDetailedResponse.converteList(listCustomer);
+		return listCustomer;
 	}
 
 	@Override
@@ -59,6 +59,14 @@ public class CustomerController implements CustomerApi {
 		AddressResponse addressCreated = customerService.registerAddressCustomer(idCustomer, addressRequest);
 		log.info("[finish] CustomerController - registerAddressCustomer");
 		return addressCreated;
+	}
+
+	@Override
+	public List<AddressListResponse> findAddressesByIdCustormer(Long idCustomer) {
+		log.info("[start] CustomerController - findAddressesByIdCustormer");
+		List<AddressListResponse> listAddress = customerService.findAddressesByIdCustormer(idCustomer);
+		log.info("[finish] CustomerController - findAddressesByIdCustormer");
+		return listAddress;
 	}
 }
 

@@ -7,7 +7,7 @@ import java.util.List;
 public interface CustomerRepository {
     Customer salva(Customer customer);
 
-    Customer findById(Long id);
+    Customer findById(Long idCustomer);
 
     List<Customer> findAllByOrderByNameAsc();
 

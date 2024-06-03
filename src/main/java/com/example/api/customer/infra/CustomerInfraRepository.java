@@ -30,9 +30,9 @@ public class CustomerInfraRepository implements CustomerRepository {
     }
 
     @Override
-    public Customer findById(Long id) {
+    public Customer findById(Long idCustomer) {
         log.info("[start] CustomerInfraRepository - findById");
-        Customer customer = customerSpringDataJPARepository.findById(id)
+        Customer customer = customerSpringDataJPARepository.findById(idCustomer)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer not found!"));
         log.info("[finish] CustomerInfraRepository - findById");
         return customer;
