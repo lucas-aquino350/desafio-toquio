@@ -21,10 +21,10 @@ public class CustomerDetailedResponse {
         this.idCustomer = customer.getIdCustomer();
         this.name = customer.getName();
         this.email = customer.getEmail();
-        this.address = converte(customer.getPrincipalAddress());
+        this.address = convert(customer.getPrincipalAddress());
     }
 
-    private AddressResponse converte(Optional<Address> principalAddress) {
+    private AddressResponse convert(Optional<Address> principalAddress) {
         return principalAddress
                 .map(AddressResponse::new)
                 .orElse(null);

@@ -2,6 +2,7 @@ package com.example.api.customer.domain;
 
 import com.example.api.customer.application.api.CustomerRequest;
 import com.example.api.customer.application.api.CustomerUpdateRequest;
+import com.example.api.handler.APIException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -65,7 +66,7 @@ public class Customer {
 		return this.addresses.stream()
 				.filter(address -> address.getIdAddress().equals(idAddress))
 				.findFirst()
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Address not found!"));
+				.orElseThrow(() -> APIException.build(HttpStatus.NOT_FOUND, "Address not found"));
 	}
 
 	public Optional<Address> getPrincipalAddress() {
