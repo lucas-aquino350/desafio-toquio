@@ -1,5 +1,8 @@
 package com.example.api.customer.application.api;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
@@ -20,7 +23,7 @@ public interface CustomerApi {
 
     @GetMapping("/list")
     @ResponseStatus(HttpStatus.OK)
-    List<CustomerDetailedResponse> findAll();
+    Page<CustomerDetailedResponse> findAll(@PageableDefault(page = 0, size = 10) Pageable pageable );
 
     @PatchMapping("/{idCustomer}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

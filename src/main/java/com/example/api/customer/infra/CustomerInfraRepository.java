@@ -5,6 +5,8 @@ import com.example.api.customer.domain.Customer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.server.ResponseStatusException;
@@ -39,9 +41,9 @@ public class CustomerInfraRepository implements CustomerRepository {
     }
 
     @Override
-    public List<Customer> findAllByOrderByNameAsc() {
+    public Page<Customer> findAllByOrderByNameAsc(Pageable pageable) {
         log.info("[start] CustomerInfraRepository - findAll");
-        List<Customer> lisCustomer = customerSpringDataJPARepository.findAllByOrderByNameAsc();
+        Page<Customer> lisCustomer = customerSpringDataJPARepository.findAllByOrderByNameAsc(pageable);
         log.info("[finish] CustomerInfraRepository - findAll");
         return lisCustomer;
     }

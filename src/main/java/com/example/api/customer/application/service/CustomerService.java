@@ -1,6 +1,8 @@
 package com.example.api.customer.application.service;
 
 import com.example.api.customer.application.api.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -9,7 +11,7 @@ public interface CustomerService {
 
     CustomerDetailedResponse findById(Long idCustomer);
 
-    List<CustomerDetailedResponse> findAll();
+    Page<CustomerDetailedResponse> findAll(Pageable pageable);
 
     void updateCustomer(Long idCustomer, CustomerUpdateRequest customerUpdateRequest);
 

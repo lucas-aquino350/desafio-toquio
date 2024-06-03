@@ -8,6 +8,8 @@ import com.example.api.customer.domain.Address;
 import com.example.api.customer.domain.AddressType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.api.customer.domain.Customer;
@@ -37,11 +39,11 @@ public class CustomerApplicationService implements CustomerService {
 		return new CustomerDetailedResponse(customer);
 	}
 
-	public List<CustomerDetailedResponse> findAll(){
+	public Page<CustomerDetailedResponse> findAll(Pageable pageable){
 		log.info("[start] CustomerApplicationService - findAll");
-		List<Customer> listCustomer = customerRepository.findAllByOrderByNameAsc();
+		Page<Customer> pageCustomer = customerRepository.findAllByOrderByNameAsc(pageable);
 		log.info("[finish] CustomerApplicationService - findAll");
-		return CustomerDetailedResponse.converteList(listCustomer);
+		return pageCustomer.map(CustomerDetailedResponse::new);
 	}
 
 	@Override

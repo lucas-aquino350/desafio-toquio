@@ -4,6 +4,8 @@ import java.util.List;
 import com.example.api.customer.application.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.api.customer.domain.Customer;
@@ -32,9 +34,9 @@ public class CustomerController implements CustomerApi {
 	}
 
 	@Override
-	public List<CustomerDetailedResponse> findAll() {
+	public Page<CustomerDetailedResponse> findAll(Pageable pageable) {
 		log.info("[start] CustomerController - findAll");
-		List<CustomerDetailedResponse> listCustomer = customerService.findAll();
+		Page<CustomerDetailedResponse> listCustomer = customerService.findAll(pageable);
 		log.info("[finish] CustomerController - findAll");
 		return listCustomer;
 	}
